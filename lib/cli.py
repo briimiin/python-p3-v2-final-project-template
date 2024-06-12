@@ -23,6 +23,10 @@ def main():
             record_sale()
         else:
             print("Invalid option, please try again.")
+        
+        continue_choice = input("Do you want to continue? (y/n): ")
+        if continue_choice.lower() != 'y':
+            break
 
 if __name__ == "__main__":
     main()
