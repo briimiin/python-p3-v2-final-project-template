@@ -43,3 +43,37 @@ def record_sale():
     session.commit()
     session.close()
     print("Sale recorded successfully.")
+
+def display_dealerships():
+    session = SessionLocal()
+    dealerships = session.query(Dealership).all()
+    if not dealerships:
+        print("No dealerships available.")
+    else:
+        print("List of dealerships:")
+        for dealership in dealerships:
+            print(f"ID: {dealership.id}, Name: {dealership.name}, Location: {dealership.location}")
+    session.close()
+
+def search_car():
+    make = input("Enter car make: ")
+    model = input("Enter car model: ")
+    year = int(input("Enter car year: "))
+    session = SessionLocal()
+    car = session.query(Car).filter_by(make=make, model=model, year=year).first()
+    if car:
+        print(f"Car found: Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
+    else:
+        print("Car not found.")
+    session.close()
+
+def display_all_cars():
+    session = SessionLocal()
+    cars = session.query(Car).all()
+    if not cars:
+        print("No cars available.")
+    else:
+        print("List of cars:")
+        for car in cars:
+            print(f"ID: {car.id}, Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
+    session.close()
