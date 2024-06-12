@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from . import Base
+from .base import Base
 
 class Car(Base):
     __tablename__ = "cars"
@@ -11,5 +11,5 @@ class Car(Base):
     year = Column(Integer, index=True)
     dealership_id = Column(Integer, ForeignKey('dealerships.id'))
 
-    # Define the relationship with Dealership
     dealership = relationship("Dealership", back_populates="cars")
+    sales_records = relationship("SalesRecord", back_populates="car")
