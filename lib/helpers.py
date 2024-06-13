@@ -3,6 +3,12 @@ from models.car import Car
 from models.sales_record import SalesRecord
 from models.database import SessionLocal
 from datetime import datetime
+# List to store dealerships and cars
+dealerships_list = []
+cars_list = []
+
+# Dictionary to map dealership names to their details
+dealership_dict = {}
 
 def add_dealership():
     name = input("Enter dealership name: ")
@@ -11,6 +17,11 @@ def add_dealership():
     dealership = Dealership(name=name, location=location)
     session.add(dealership)
     session.commit()
+
+    # Add dealership to list and dictionary
+    dealerships_list.append(dealership)
+    dealership_dict[name] = {"name": name, "location": location}
+    
     session.close()
     print("Dealership added successfully.")
 
@@ -23,6 +34,8 @@ def add_car():
     car = Car(make=make, model=model, year=year, dealership_id=dealership_id)
     session.add(car)
     session.commit()
+    cars_list.append(car)
+
     session.close()
     print("Car added successfully.")
 
@@ -59,13 +72,17 @@ def search_car():
     make = input("Enter car make: ")
     model = input("Enter car model: ")
     year = int(input("Enter car year: "))
+    car_tuple = (make, model, year)
+
     session = SessionLocal()
-    car = session.query(Car).filter_by(make=make, model=model, year=year).first()
-    if car:
-        print(f"Car found: Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
-    else:
-        print("Car not found.")
-    session.close()
+    try:
+        found_car = session.query(Car).filter_by(make=car_tuple[0], model=car_tuple[1], year=car_tuple[2]).first()
+        if found_car:
+            print(f"Car found: ID: {found_car.id}, Make: {found_car.make}, Model: {found_car.model}, Year: {found_car.year}, Dealership ID: {found_car.dealership_id}")
+        else:
+            print("Car not found.")
+    finally:
+        session.close()
 
 def display_all_cars():
     session = SessionLocal()
@@ -77,3 +94,4 @@ def display_all_cars():
         for car in cars:
             print(f"ID: {car.id}, Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
     session.close()
+
