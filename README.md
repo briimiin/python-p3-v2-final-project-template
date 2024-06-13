@@ -1,5 +1,5 @@
 ## Car Dealership Management System
-This is a CLI (Command Line Interface) application for managing car dealerships, cars, and sales records. The system is built using Python and SQLAlchemy for database management.
+This is a CLI (Command Line Interface) application for managing car dealerships, cars, and sales records. The system is built using Python for database management.
 
 # Features
 Add Dealerships: Add new dealerships to the system with their name and location.
