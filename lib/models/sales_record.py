@@ -4,7 +4,7 @@ from .database import Base
 
 class SalesRecord(Base):
     __tablename__ = "sales_records"
-
+# foreign key
     car_id = Column(Integer, ForeignKey('cars.id'))
     sale_date = Column(Date, index=True)
     price = Column(Float, index=True)
