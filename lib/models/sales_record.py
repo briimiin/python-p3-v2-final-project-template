@@ -11,6 +11,7 @@ class SalesRecord(Base):
     buyer_name = Column(String, index=True)
 
     __table_args__ = (
+        # composite key
         PrimaryKeyConstraint('car_id', 'sale_date'),
     )
 

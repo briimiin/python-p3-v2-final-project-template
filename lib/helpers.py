@@ -16,8 +16,9 @@ def add_dealership():
     dealership = Dealership(name=name, location=location)
     session.add(dealership)
     session.commit()
-
+    # lists
     dealerships_list.append(dealership)
+    # dicts
     dealership_dict[name] = {"name": name, "location": location}
     
     session.close()
@@ -68,13 +69,14 @@ def display_dealerships():
     else:
         print("List of dealerships:")
         for dealership in dealerships:
-            print(f"ID: {dealership.id}, Name: {dealership.name}, Location: {dealership.location}")
+            print(f"ID: {dealership.id} |Name: {dealership.name}| Location: {dealership.location}")
     session.close()
 
 def search_car():
     make = input("Enter car make: ")
     model = input("Enter car model: ")
     year = int(input("Enter car year: "))
+    # tuples
     car_tuple = (make, model, year)
 
     session = SessionLocal()
