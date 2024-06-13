@@ -1,14 +1,17 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float, PrimaryKeyConstraint
 from sqlalchemy.orm import relationship
-from .base import Base
+from .database import Base
 
 class SalesRecord(Base):
     __tablename__ = "sales_records"
 
-    id = Column(Integer, primary_key=True, index=True)
     car_id = Column(Integer, ForeignKey('cars.id'))
-    sale_date = Column(Date, nullable=False)
-    price = Column(Integer, nullable=False)
-    buyer_name = Column(String, nullable=False)
+    sale_date = Column(Date, index=True)
+    price = Column(Float, index=True)
+    buyer_name = Column(String, index=True)
+
+    __table_args__ = (
+        PrimaryKeyConstraint('car_id', 'sale_date'),
+    )
 
     car = relationship("Car", back_populates="sales_records")

@@ -18,7 +18,7 @@ def main():
         print("5. Search for a car")
         print("6. Display all cars")
         choice = input("> ")
-        
+
         if choice == "0":
             break
         elif choice == "1":
@@ -35,7 +35,7 @@ def main():
             display_all_cars()
         else:
             print("Invalid option, please try again.")
-        
+
         continue_choice = input("Do you want to continue? (y/n): ")
         if continue_choice.lower() != 'y':
             break

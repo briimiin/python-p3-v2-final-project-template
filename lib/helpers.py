@@ -3,11 +3,10 @@ from models.car import Car
 from models.sales_record import SalesRecord
 from models.database import SessionLocal
 from datetime import datetime
-# List to store dealerships and cars
+from sqlalchemy.exc import IntegrityError
+
 dealerships_list = []
 cars_list = []
-
-# Dictionary to map dealership names to their details
 dealership_dict = {}
 
 def add_dealership():
@@ -18,7 +17,6 @@ def add_dealership():
     session.add(dealership)
     session.commit()
 
-    # Add dealership to list and dictionary
     dealerships_list.append(dealership)
     dealership_dict[name] = {"name": name, "location": location}
     
@@ -42,20 +40,25 @@ def add_car():
 def record_sale():
     car_id = int(input("Enter car ID: "))
     sale_date = input("Enter sale date (YYYY-MM-DD): ")
-    price = int(input("Enter sale price: "))
+    price = float(input("Enter sale price: "))
     buyer_name = input("Enter buyer name: ")
     session = SessionLocal()
     sale_date_parsed = datetime.strptime(sale_date, '%Y-%m-%d')
-    sale = SalesRecord(
-        car_id=car_id,
-        sale_date=sale_date_parsed,
-        price=price,
-        buyer_name=buyer_name
-    )
-    session.add(sale)
-    session.commit()
-    session.close()
-    print("Sale recorded successfully.")
+    try:
+        sale = SalesRecord(
+            car_id=car_id,
+            sale_date=sale_date_parsed,
+            price=price,
+            buyer_name=buyer_name
+        )
+        session.add(sale)
+        session.commit()
+        print("Sale recorded successfully.")
+    except IntegrityError:
+        session.rollback()
+        print("Error: Sale record for this car on this date already exists.")
+    finally:
+        session.close()
 
 def display_dealerships():
     session = SessionLocal()
@@ -94,4 +97,3 @@ def display_all_cars():
         for car in cars:
             print(f"ID: {car.id}, Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
     session.close()
-
