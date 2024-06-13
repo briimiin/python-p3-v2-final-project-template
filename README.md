@@ -1,172 +1,108 @@
-# Phase 3 CLI+ORM Project Template
+##Car Dealership Management System
+This is a CLI (Command Line Interface) application for managing car dealerships, cars, and sales records. The system is built using Python and SQLAlchemy for database management.
 
-## Learning Goals
+#Features
+Add Dealerships: Add new dealerships to the system with their name and location.
+Add Cars: Add new cars to the system with details such as make, model, year, and dealership ID.
+Record Sales: Record sales transactions including the car ID, sale date, sale price, and buyer name.
+Display Dealerships and Cars: View a list of all dealerships and cars in the system.
+Search for Cars: Search for a specific car by make, model, and year.
+Requirements
+Python 3.6+
+SQLAlchemy
+Installation
+Clone the repository:
 
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
+bash
+Copy code
+git clone https://github.com/your-username/car-dealership-management.git
+Navigate to the project directory:
 
----
+bash
+Copy code
+cd car-dealership-management
+Install dependencies:
 
-## Introduction
-
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
-
-Take a look at the directory structure:
-
-```console
-.
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-└── lib
-    ├── models
-    │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
-
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
-
----
-
-## Generating Your Environment
-
-You might have noticed in the file structure- there's already a Pipfile!
-
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
-
-```console
+bash
+Copy code
 pipenv install
-pipenv shell
-```
+Set up the database:
 
----
+bash
+Copy code
+pipenv run python lib/database.py
+Usage
+Run the CLI application:
 
-## Generating Your CLI
+bash
+Copy code
+pipenv run python lib/cli.py
+Follow the on-screen instructions to perform various operations such as adding dealerships, cars, recording sales, and more.
 
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
+Database Schema
+The application uses SQLite as its database. The database schema includes the following tables:
 
-The project template has a sample CLI in `lib/cli.py` that looks like this:
+dealerships: Stores dealership information such as ID, name, and location.
+cars: Stores car information such as ID, make, model, year, and dealership ID.
+sales_records: Stores sales record information such as car ID, sale date, price, and buyer name.
+Relationships
+One-to-many relationship between dealerships and cars.
+One-to-many relationship between cars and sales_records.
+Composite Key
+The sales_records table uses a composite primary key consisting of car_id and sale_date.
+Example CLI Commands
+Add a dealership:
 
-```py
-# lib/cli.py
+yaml
+Copy code
+Please select an option:
+1. Add a dealership
+Enter dealership name: Example Dealership
+Enter dealership location: Example Location
+Add a car:
 
-from helpers import (
-    exit_program,
-    helper_1
-)
+yaml
+Copy code
+Please select an option:
+2. Add a car
+Enter car make: Toyota
+Enter car model: Corolla
+Enter car year: 2021
+Enter dealership ID: 1
+Record a sale:
 
+mathematica
+Copy code
+Please select an option:
+3. Record a sale
+Enter car ID: 1
+Enter sale date (YYYY-MM-DD): 2023-12-01
+Enter sale price: 12000
+Enter buyer name: John Doe
+Display all dealerships:
 
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
+sql
+Copy code
+Please select an option:
+4. Display all dealerships
+Search for a car:
 
+yaml
+Copy code
+Please select an option:
+5. Search for a car
+Enter car make: Toyota
+Enter car model: Corolla
+Enter car year: 2021
+Display all cars:
 
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
+sql
+Copy code
+Please select an option:
+6. Display all cars
+Contributing
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.
 
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-if __name__ == "__main__":
-    main()
-```
-
-The helper functions are located in `lib/helpers.py`:
-
-```py
-# lib/helpers.py
-
-def helper_1():
-    print("Performing useful function#1.")
-
-
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
-
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
-
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
-
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
-
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
-
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
-
-- User interface
-- Data persistence
-- Problem domain rules and logic
-
----
-
-## Updating README.md
-
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
-
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
