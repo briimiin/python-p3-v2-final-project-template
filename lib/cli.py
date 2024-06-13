@@ -9,7 +9,8 @@ from helpers import (
 
 def main():
     while True:
-        print("Please select an option:")
+        print("**NUNUAGARISIMZINGA DEALERSHIP***")
+        print("Please Select a program")
         print("0. Exit the program")
         print("1. Add a dealership")
         print("2. Add a car")

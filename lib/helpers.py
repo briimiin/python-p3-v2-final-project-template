@@ -81,7 +81,7 @@ def search_car():
     try:
         found_car = session.query(Car).filter_by(make=car_tuple[0], model=car_tuple[1], year=car_tuple[2]).first()
         if found_car:
-            print(f"Car found: ID: {found_car.id}, Make: {found_car.make}, Model: {found_car.model}, Year: {found_car.year}, Dealership ID: {found_car.dealership_id}")
+            print(f"Car found: ID: {found_car.id} |Make: {found_car.make} |Model: {found_car.model} |Year: {found_car.year} |Dealership ID: {found_car.dealership_id}")
         else:
             print("Car not found.")
     finally:
@@ -95,5 +95,5 @@ def display_all_cars():
     else:
         print("List of cars:")
         for car in cars:
-            print(f"ID: {car.id}, Make: {car.make}, Model: {car.model}, Year: {car.year}, Dealership ID: {car.dealership_id}")
+            print(f"ID: {car.id}|Make: {car.make} |Model: {car.model} |Year: {car.year} |Dealership ID: {car.dealership_id}")
     session.close()
